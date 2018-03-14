@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 from faker import Faker
 from random import *
 import json
