@@ -5,13 +5,13 @@ from random import *
 import json
 
 fake = Faker()
-type = ['bar', 'nightclub', 'restaurant'];
+type = ['bar', 'nightclub', 'restaurant', 'cafe'];
 
-with open('data-bulk.json', 'w') as f:
+with open('data-bulk.json', 'w', buffering=20*(1024**2)) as f:
     for i in range(1, 10000001):
         restaurant = {
+            '_id': i,
             'name': fake.company(),
-            'place_id': str(i),
             'google_rating': randint(1, 5),
             'zagat_food_rating': randint(1, 5),
             'review_count': randint(1, 1000),
@@ -22,14 +22,8 @@ with open('data-bulk.json', 'w') as f:
             ],
             'short_description': fake.catch_phrase(),
             'neighorhood': fake.city(),
-            'location': {
-                'lat': 37.774929,
-                'long': -122.419416,
-            },
-            'address': fake.street_address(),
-            'website': fake.url(schemes=None),
             'price_level': randint(1, 5),
-            'types': type[randint(0, 2)],
+            'types': type[randint(0, 3)],
             'nearby': [randint(1, 10000000), randint(1, 10000000), randint(1, 10000000), randint(1, 10000000),
                        randint(1, 10000000), randint(1, 10000000)],
         }
