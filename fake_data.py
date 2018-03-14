@@ -14,9 +14,9 @@ with open('data-bulk.json', 'w') as f:
             'zagat_food_rating': randint(1, 5),
             'review_count': randint(1, 1000),
             'photos': [
-                'https://lh3.ggpht.com/p/AF1QipOo-1xX-yBUNiVNwufvtdXMnmrQs0j5smvFwp-L=w1400',
-                'https://lh3.ggpht.com/p/AF1QipPzHQGKHkQJb_pz2-0rqbuZCx2Ai-62CgVnyiHr=w1400',
-                'https://lh3.ggpht.com/p/AF1QipMfMvE3tUF0zwDXjxLO8DFtWs1yMvumjj5JDYT2=w1400'
+                'https://loremflickr.com/320/240/food',
+                'https://loremflickr.com/320/240/food',
+                'https://loremflickr.com/320/240/food'
             ],
             'short_description': fake.catch_phrase(),
             'neighorhood': fake.city(),
