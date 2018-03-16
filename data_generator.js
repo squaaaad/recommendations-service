@@ -1,8 +1,9 @@
 const faker = require('faker');
 const fs = require('fs');
 let file = fs.createWriteStream('./newdata.json');
-const type = ['bar', 'nightclub', 'restaurant'];
 
+const type = ['bar', 'nightclub', 'restaurant'];
+const start = Date.now();
 let createRestaurant = (id) => {
   let restaurant = {
     _id: id,
@@ -31,18 +32,32 @@ let createRestaurant = (id) => {
       Math.ceil(Math.random() * 10000000)
     ]
   };
-  return JSON.stringify(restaurant);
+  return JSON.stringify(restaurant) + '\n';
 };
 
-let writeOneMillionTimes = (n = 1e7) => {
-  let isReady = true;
-  while (n > 0 && isReady) {
-    isReady = file.write(`${createRestaurant(n)}\n`);
-    n -= 1;
+function writeTenMillionTimes(writer, encoding, callback) {
+  let i = 10000000;
+  createRestaurant(i)
+  write();
+  function write() {
+    let ok = true;
+    do {
+      i--;
+      if (i === 0) {
+        // last time!
+        writer.write(createRestaurant(i), encoding, callback);
+      } else {
+        // see if we should continue, or wait don't pass the callback, because we're not
+        // done yet.
+        ok = writer.write(createRestaurant(i), encoding);
+      }
+    } while (i > 0 && ok);
+    if (i > 0) {
+      // had to stop early! write some more once it drains
+      writer.once('drain', write);
+    }
   }
-  file.once('drain', () => {
-    writeOneMillionTimes(n);
-  });
-};
-
-writeOneMillionTimes();
+}
+writeTenMillionTimes(file, 'utf8', () => {
+  console.log(Date.now() - start);
+});

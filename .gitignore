@@ -63,3 +63,9 @@ client/dist/bundle.js.map
 
 #api key
 config.js
+
+data-bulk.json
+newdata.json
+test.json
+*.vscode/
+*.gitignore

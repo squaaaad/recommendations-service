@@ -7,8 +7,8 @@ import json
 fake = Faker()
 type = ['bar', 'nightclub', 'restaurant', 'cafe'];
 
-with open('data-bulk.json', 'w', buffering=20*(1024**2)) as f:
-    for i in range(1, 10000001):
+with open('test.json', 'w', buffering=20*(1024**2)) as f:
+    for i in range(1, 1000001):
         restaurant = {
             '_id': i,
             'name': fake.company(),
