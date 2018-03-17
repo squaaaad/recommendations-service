@@ -9,7 +9,7 @@ var mongoose = require('mongoose');
 const dbAddress = process.env.DB_ADDRESS || 'localhost';
 
 var uri = `mongodb://${dbAddress}/wegot`;
-mongoose.connect(uri, { useMongoClient: true });
+mongoose.connect(uri, {useMongoClient: true});
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -22,27 +22,26 @@ app.get('/api/restaurants/:id/recommendations', function (req, res) {
   console.log("GET " + req.url);
   // find recommended restaurants based on id
   var results = [];
-  restaurants.findOne(placeId, (err, data)=> {
-    if(err){
+  restaurants.findOne(placeId, (err, data) => {
+    if (err) {
       res.status(500);
       console.log(err);
-    } else{
-      // console.log("restaurant info:",data);
+    } else {
+      console.log("restaurant info:", data);
       var nearbyArr = data[0].nearby;
       // console.log(nearbyArr);
       results.push(data[0]);
 
-      restaurants.findMany(nearbyArr, (err, data)=> {
-        if(err){
+      restaurants.findMany(nearbyArr, (err, data) => {
+        if (err) {
           res.status(500);
           console.log(err);
-        } else{
+        } else {
           // console.log("recommended restaurants:", data);
-          results.push(data)
+          results.push(data);
           // console.log("number of recommended: " + data.length);
           res.status(200);
-          // res.send(data);
-          // console.log(results.length);
+          // res.send(data); console.log(results.length);
           res.send(results);
         }
       });
@@ -50,5 +49,6 @@ app.get('/api/restaurants/:id/recommendations', function (req, res) {
   });
 });
 
-
-app.listen(3004, function () { console.log('WeGot app listening on port 3004!') });
+app.listen(3004, function () {
+  console.log('WeGot app listening on port 3004!')
+});

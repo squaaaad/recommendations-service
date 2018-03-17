@@ -29,6 +29,7 @@ let createRestaurant = (id) => {
       Math.ceil(Math.random() * 10000000),
       Math.ceil(Math.random() * 10000000),
       Math.ceil(Math.random() * 10000000),
+      Math.ceil(Math.random() * 10000000),
       Math.ceil(Math.random() * 10000000)
     ]
   };
@@ -39,6 +40,7 @@ function writeTenMillionTimes(writer, encoding, callback) {
   let i = 10000000;
   createRestaurant(i)
   write();
+
   function write() {
     let ok = true;
     do {

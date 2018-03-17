@@ -2,19 +2,18 @@ var mongoose = require('mongoose');
 
 var restaurantSchema = mongoose.Schema({
   name: String,
-  place_id: { type: String, unique: true },
+  _id: {
+    type: Number
+  },
   google_rating: Number,
   zagat_food_rating: Number,
   review_count: Number,
   photos: [String],
   short_description: String,
   neighborhood: String,
-  location: { lat: Number, long: Number },
-  address: String, 
-  website: String,
   price_level: Number,
-  types: [String],
-  nearby: [String]
+  types: String,
+  nearby: [Number]
 });
 
 var RestaurantModel = mongoose.model('Restaurant', restaurantSchema);
@@ -28,7 +27,9 @@ function findAll(callback) {
 // findOne will retrieve the restaurant associated with the given id
 function findOne(id, callback) {
   console.log("find " + id);
-  RestaurantModel.find({place_id: id}, callback);
+  RestaurantModel.find({
+    _id: id
+  }, callback);
   // RestaurantModel.find({place_id: 'ChIJFUBxSY6AhYARwOaLV7TsLjw'}, callback);
 }
 
@@ -41,10 +42,14 @@ function insertOne(restaurant, callback) {
 // retrieve many restaurants
 function findMany(ids, callback) {
   console.log('find 6 nearby restaurants');
-  RestaurantModel.find({place_id: {$in: ids}}, callback);
+  RestaurantModel.find({
+    _id: {
+      $in: ids
+    }
+  }, callback);
 }
 
-function count(){
+function count() {
   return RestaurantModel.count();
 }
 
