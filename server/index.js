@@ -1,3 +1,5 @@
+require('newrelic');
+
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -29,7 +31,7 @@ app.get('/api/restaurants/:id/recommendations', function (req, res) {
     } else {
       console.log("restaurant info:", data);
       var nearbyArr = data[0].nearby;
-      // console.log(nearbyArr);
+      console.log(nearbyArr);
       results.push(data[0]);
 
       restaurants.findMany(nearbyArr, (err, data) => {
@@ -50,5 +52,5 @@ app.get('/api/restaurants/:id/recommendations', function (req, res) {
 });
 
 app.listen(3004, function () {
-  console.log('WeGot app listening on port 3004!')
+  console.log('WeGot app listening on port 3004!');
 });
