@@ -10,6 +10,7 @@ const RestaurantModel = require('../db/models/restaurant.js');
 const app = express();
 const dbAddress = process.env.DB_ADDRESS || 'localhost';
 const uri = `mongodb://${dbAddress}/wegot`;
+require('../helpers/cache');
 
 mongoose.connect(uri, {useMongoClient: true});
 
@@ -21,25 +22,20 @@ app.use('/restaurants/:id', express.static(path.join(__dirname, '../client/dist'
 
 app.get('/api/restaurants/:id/recommendations', async(req, res) => {
   var placeId = req.params.id || 0;
-  console.log("GET " + req.url);
-  // find recommended restaurants based on id
   var results = [];
 
   const findNearbyRestaurants = await RestaurantModel.find({_id: placeId});
-
-  results.push(findNearbyRestaurants[0]);
-
   const nearbyResults = await RestaurantModel.find({
     _id: {
       $in: findNearbyRestaurants[0].nearby
     }
   });
 
-  results.push(nearbyResults);
-
+  results.push(findNearbyRestaurants[0], nearbyResults);
   res
     .status(200)
     .send(results);
+
 });
 
 app.listen(3004, function () {
