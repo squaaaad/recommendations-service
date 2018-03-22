@@ -1,4 +1,5 @@
 require('newrelic');
+require('../helpers/cache');
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -10,7 +11,6 @@ const RestaurantModel = require('../db/models/restaurant.js');
 const app = express();
 const dbAddress = process.env.DB_ADDRESS || 'localhost';
 const uri = `mongodb://${dbAddress}/wegot`;
-require('../helpers/cache');
 
 mongoose.connect(uri, {useMongoClient: true});
 

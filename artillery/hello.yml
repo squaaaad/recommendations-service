@@ -1,0 +1,14 @@
+config:
+  target: "http://localhost:3004/api/restaurants"
+  phases:
+    - duration: 300
+      arrivalRate: 400
+  processor: './random.js'
+scenarios:
+  - name: "recommendations test"
+    flow:
+      - loop:
+        - function: 'generateRandomId'
+        - get:
+            url: "/{{ id }}/recommendations"
+        count: 10
