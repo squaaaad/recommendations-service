@@ -13,7 +13,6 @@ mongoose.Query.prototype.exec = async function () {
   const cacheValue = await client.get(key);
 
   if (cacheValue) {
-    console.log('returned from cache');
     const doc = JSON.parse(cacheValue);
     return Array.isArray(doc)
       ? doc.map(d => new this.model(d))
