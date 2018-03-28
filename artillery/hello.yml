@@ -1,8 +1,8 @@
 config:
-  target: "http://13.57.25.19:3004/api/restaurants"
+  target: "http://localhost:3004/api/restaurants"
   phases:
     - duration: 60
-      arrivalRate: 10
+      arrivalRate: 100
   processor: './random.js'
 scenarios:
   - name: "recommendations test"
